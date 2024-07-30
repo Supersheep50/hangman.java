@@ -9,7 +9,9 @@ import java.io.File;
 public class Hangman {
     public static void main (String[] args) throws FileNotFoundException {
 
+
         Scanner scanner = new Scanner(new File("/Users/jonsmacbookair/Documents/HangmanWords.txt"));
+        Scanner keyboard = new Scanner(System.in);
 
         List<String> words = new ArrayList<>();
 
@@ -25,15 +27,23 @@ public class Hangman {
 
         List<Character> playerGuesses = new ArrayList<>();
 
-        // change this into a method
-        for (int i = 0; i < word.length(); i++) {
-            if (playerGuesses.contains(word.charAt(i))) {
-                System.out.print(word.charAt(i));
+        printWordState(word, playerGuesses);
+
+        System.out.println("Please enter a letter: ");
+        String letterGuess = keyboard.nextLine();
+        playerGuesses.add(letterGuess.charAt(0));
+
+
+        printWordState(word, playerGuesses);
+
+
             }
-            else {
-                System.out.print("-");
+            private static void printWordState(String word, List<Character> playerGuesses) {
+                for (int i = 0; i < word.length(); i++) {
+                    if (playerGuesses.contains(word.charAt(i))) {
+                        System.out.print(word.charAt(i));
+                    }
+                }
             }
         }
-    System.out.println();
-    }
-}
+
