@@ -16,7 +16,7 @@ public class Hangman {
         List<String> words = new ArrayList<>();
 
         while (scanner.hasNext()) {
-           words.add(scanner.nextLine());
+            words.add(scanner.nextLine());
 
         }
 
@@ -29,21 +29,34 @@ public class Hangman {
 
         printWordState(word, playerGuesses);
 
-        System.out.println("Please enter a letter: ");
-        String letterGuess = keyboard.nextLine();
-        playerGuesses.add(letterGuess.charAt(0));
+        while(true) {
+            getPlayerGuess(keyboard, word, playerGuesses);
+           if  (printWordState(word, playerGuesses)) {
+               break;
+           }
+        }
+        System.out.println("You win!");
+    }
 
+        private static boolean getPlayerGuess(Scanner keyboard, String word, List<Character> playerGuesses) {
+            System.out.println("Please enter a letter:");
+            String letterGuess = keyboard.nextLine();
+            playerGuesses.add(letterGuess.charAt(0));
 
-        printWordState(word, playerGuesses);
-
-
-            }
-            private static void printWordState(String word, List<Character> playerGuesses) {
+            return word.equals(letterGuess);
+        }
+        private static boolean printWordState(String word, List<Character> playerGuesses) {
+                int correctCount = 0;
                 for (int i = 0; i < word.length(); i++) {
                     if (playerGuesses.contains(word.charAt(i))) {
                         System.out.print(word.charAt(i));
+                        correctCount++;
+                    } else {
+                        System.out.print(" - ");
                     }
                 }
+                System.out.println();
+                return (word.length() == correctCount);
             }
         }
 
