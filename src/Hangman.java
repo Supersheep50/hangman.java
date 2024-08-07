@@ -9,26 +9,43 @@ import java.io.File;
 public class Hangman {
     public static void main (String[] args) throws FileNotFoundException {
 
-
-        Scanner scanner = new Scanner(new File("/Users/jonsmacbookair/Documents/HangmanWords.txt"));
         Scanner keyboard = new Scanner(System.in);
 
-        List<String> words = new ArrayList<>();
+        System.out.println("Welcome to the Hangman game!");
+        System.out.println("A mans life is on the line...");
+        System.out.println("1 or 2 players?");
+        String players = keyboard.nextLine();
 
-        while (scanner.hasNext()) {
-            words.add(scanner.nextLine());
+        String word;
+        if (players.equals("1")) {
 
+
+            Scanner scanner = new Scanner(new File("/Users/jonsmacbookair/Documents/HangmanWords.txt"));
+
+
+            List<String> words = new ArrayList<>();
+
+            while (scanner.hasNext()) {
+                words.add(scanner.nextLine());
+
+            }
+
+            Random rand = new Random();
+
+            word = words.get(rand.nextInt(words.size()));
         }
-
-        Random rand = new Random();
-
-        String word = words.get(rand.nextInt(words.size()));
-        System.out.println(word);
+        else {
+            System.out.println("Player 1, please enter your word");
+            word = keyboard.nextLine();
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("Your turn Player 2!");
+        }
+        //System.out.println(word);
 
         List<Character> playerGuesses = new ArrayList<>();
 
 
-        int wrongCount = 0;
+        Integer wrongCount = 0;
         while(true) {
 
             System.out.println(" ------- ");
@@ -51,9 +68,15 @@ public class Hangman {
                 System.out.print("/ ");
                 if (wrongCount >= 6) {
                     System.out.println("\\");
+                    System.out.println(" You Lose! ");
+                    System.out.println("The word was: " + word);
+                    break;
+
                 } else {
                     System.out.println(" ");
+
                 }
+
             }
 
 
